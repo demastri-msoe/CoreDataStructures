@@ -14,7 +14,7 @@ package coredatastructures;
  * @param <E> type being managed in this list
  */
 public class CoreArrayList<E> implements CoreList<E> {
-    private final int DEFAULT_INCREMENT = 10;
+    private static final int DEFAULT_INCREMENT = 10;
     private E[] data;
     private int increment;
     private int capacity;
@@ -30,6 +30,7 @@ public class CoreArrayList<E> implements CoreList<E> {
 
     /**
      * constructor allowing modification of increment, initializes data
+     *
      * @param increment increment to use
      */
     public CoreArrayList(int increment) {
@@ -40,7 +41,7 @@ public class CoreArrayList<E> implements CoreList<E> {
      * constructor allowing modification of increment and capacity
      * initializes data
      *
-     * @param capacity initial capacity
+     * @param capacity  initial capacity
      * @param increment increment to use
      */
     public CoreArrayList(int capacity, int increment) {
@@ -51,9 +52,9 @@ public class CoreArrayList<E> implements CoreList<E> {
 
     @Override
     public void add(E elt) {
-        if(size() == capacity) {
+        if (size() == capacity) {
             E[] newData = (E[]) new Object[capacity += increment];
-            for(int i = 0; i<size(); i++) {
+            for (int i = 0; i < size(); i++) {
                 newData[i] = data[i];
             }
             data = newData;
@@ -68,8 +69,8 @@ public class CoreArrayList<E> implements CoreList<E> {
 
     @Override
     public boolean contains(E elt) {
-        for(E heldElt: data) {
-            if(elt == heldElt || elt != null && elt.equals(heldElt)) {
+        for (E heldElt : data) {
+            if (elt == heldElt || elt != null && elt.equals(heldElt)) {
                 return true;
             }
         }
@@ -78,7 +79,7 @@ public class CoreArrayList<E> implements CoreList<E> {
 
     @Override
     public E get(int index) {
-        if(!validateIndex(index)) {
+        if (!validateIndex(index)) {
             throw new IndexOutOfBoundsException();
         }
         return data[index];
@@ -91,7 +92,7 @@ public class CoreArrayList<E> implements CoreList<E> {
 
     @Override
     public E set(int index, E elt) {
-        if(!validateIndex(index)) {
+        if (!validateIndex(index)) {
             throw new IndexOutOfBoundsException();
         }
         E outVal = data[index];

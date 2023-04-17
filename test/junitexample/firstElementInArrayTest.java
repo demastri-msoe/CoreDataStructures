@@ -17,11 +17,11 @@ public class firstElementInArrayTest {
         myList.add("def");
         myList.add("ghi");
 
-        String outString = myObj.findEltInArray( myList, "abc");
+        String someString = "abc";
+        String outString = myObj.findEltInArray( myList, someString);
         Assertions.assertNotNull(outString);
 
-        String someString = (new String("a")+new String("b")+new String("c"));
-
+        someString = (new String("a")+new String("b")+new String("c"));
         outString = myObj.findEltInArray( myList, someString);
         Assertions.assertNotNull(outString);
     }
