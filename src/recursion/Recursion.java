@@ -156,8 +156,8 @@ public class Recursion {
     public int doBinarySearch(int items[], int target, int first, int last) {
         if (first > last) return -1;
         int middle = (first + last) / 2;
-        if (target[middle] == target) return middle;
-        if (target[middle] < target)
+        if (items[middle] == target) return middle;
+        if (items[middle] < target)
             return doBinarySearch(items, target, first, middle - 1);
         else
             return doBinarySearch(items, target, middle + 1, last);
