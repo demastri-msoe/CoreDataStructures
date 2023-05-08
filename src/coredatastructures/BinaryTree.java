@@ -2,7 +2,7 @@ package coredatastructures;
 
 import java.util.function.BiConsumer;
 
-public class BinaryTree<E> {
+public class BinaryTree<E extends Comparable<E>> {
 
     protected Node<E> root;
 
@@ -116,11 +116,11 @@ public class BinaryTree<E> {
         return root == null ? null : root.data;
     }
 
-
+    @Override
     public String toString() {
         var sb = new StringBuilder();
-        preOrderTraverse((e, d) -> {
-            //if (e == null) return;
+        inOrderTraverse((e, d) -> {
+            if (e == null) return;    // uncomment if I don't want null pointers to show up as "null" text lines
             for (int i = 1; i < d; i++) {
                 sb.append(" ");
             }
@@ -175,6 +175,72 @@ public class BinaryTree<E> {
             postOrderTraverse(node.right, depth + 1, consumer);
             consumer.accept(node.data, depth);
         }
+    }
+
+    /**
+     * Starter method find.
+     * pre: The target object must implement
+     * the Comparable interface.
+     *
+     * @param target The Comparable object being sought
+     * @return The object, if found, otherwise null
+     */
+    public E find(E target) {
+        return find(root, target);
+    }
+
+    /**
+     * Recursive find method.
+     *
+     * @param localRoot The local subtree’s root
+     * @param target    The object being sought
+     * @return The object, if found, otherwise null
+     */
+    private E find(Node<E> localRoot, E target) {
+        if (localRoot == null) {
+            return null;
+        }
+
+        // Compare the target with the data field at the root.
+        if (localRoot == null || localRoot.data == null) {
+            return null;
+        }
+        if (target.equals(localRoot.data)) {
+            return localRoot.data;
+        }
+        E leftReturn = find(localRoot.left, target);
+        if (leftReturn != null) {
+            return leftReturn;
+        }
+        E rightReturn = find(localRoot.right, target);
+        if (rightReturn != null) {
+            return rightReturn;
+        }
+        return null;
+    }
+
+    int height() {
+        return (root == null) ? 0 : height(root, 1);
+    }
+
+    int height(Node<E> n, int depth) {
+        int lDepth = (n.left == null ? depth : height(n.left, depth + 1));
+        int rDepth = (n.right == null ? depth : height(n.right, depth + 1));
+        return lDepth > rDepth ? lDepth : rDepth;
+    }
+
+    public E recursiveFindLargest() {
+        E largest = getData();
+        E lLargest = (getLeftSubtree() == null ? null : getLeftSubtree().recursiveFindLargest());
+        if (lLargest != null && (largest == null || lLargest.compareTo(largest) > 0)) {
+            largest = lLargest;
+        }
+        E rLargest = (getRightSubtree() == null ? null : getRightSubtree().recursiveFindLargest());
+        if (rLargest != null && (largest == null || rLargest.compareTo(largest) > 0)) {
+            largest = rLargest;
+        }
+
+        return largest;
     }
 
 }
