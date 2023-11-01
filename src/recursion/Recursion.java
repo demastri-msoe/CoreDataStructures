@@ -1,6 +1,8 @@
 package recursion;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Recursion {
 
@@ -161,6 +163,40 @@ public class Recursion {
             return doBinarySearch(items, target, first, middle - 1);
         else
             return doBinarySearch(items, target, middle + 1, last);
+    }
+
+    public boolean groupSum(List<Integer> l, int target) {
+        if (l.size() == 0) {
+            return target == 0;
+        }
+        return groupSum(l.subList(1, l.size()), target)         // without using the 1st elt of _this_ list
+                || groupSum(l.subList(1, l.size()), target - l.get(0));  // _using_ the 1st elt of _this_ list
+    }
+
+    public List<String> groupSumWithFeedback(List<Integer> l, int target) {
+        // strings will get populated for leaf nodes that are successful
+        // each returned recursive call will add the current decision to successful strings returned
+        if (l.size() == 0) {
+            List<String> outList = new ArrayList<>();
+            // remember, this is successful, but I don't know how I got here...
+            if (target == 0) {
+                outList.add("");
+            }
+            return outList;
+        }
+
+        // these are the recursive calls from above - we're just adding this node's contribution to any good paths
+        List<String> dontUseThisNode = groupSumWithFeedback(l.subList(1, l.size()), target);
+        List<String> useThisNode = groupSumWithFeedback(l.subList(1, l.size()), target - l.get(0));
+
+        List<String> outList = new ArrayList<>();
+        for (String s : dontUseThisNode) {
+            outList.add("_" + s);
+        }
+        for (String s : useThisNode) {
+            outList.add("X" + s);
+        }
+        return outList;
     }
 
 }

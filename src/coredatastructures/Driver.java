@@ -12,6 +12,15 @@ package coredatastructures;
  */
 public class Driver {
     public static void main(String[] args) {
+
+        testBinaryTree();
+
+        testBinarySearchTree();
+
+        //testOpenAddressing();
+    }
+
+    private static void testBinaryTree() {
         BinaryTree<String> leftSub = new BinaryTree<>(new BinaryTree.Node<>("20"));
         BinaryTree<String> rightSub = new BinaryTree<>(new BinaryTree.Node<>("30"));
         BinaryTree<String> rightSubRoot = new BinaryTree<>("+", leftSub, rightSub);
@@ -30,9 +39,10 @@ public class Driver {
         System.out.println(root.height());
         System.out.println(root.recursiveFindLargest());
 
-
         System.out.println("-----------------------");
+    }
 
+    private static void testBinarySearchTree() {
         int[] nbrsToAdd = new int[]{60, 25, 85, 15, 40, 70, 95, 5, 20, 35, 50, 65, 80, 90, 10, 30, 45, 55, 75};
         BinarySearchTree<Integer> intTree = new BinarySearchTree<>();
         for (int i : nbrsToAdd) {
@@ -46,8 +56,10 @@ public class Driver {
         System.out.println(intTree.height());
         System.out.println(intTree.nonRecursiveLargest());
         System.out.println(intTree.recursiveFindLargest());
+        System.out.println("-----------------------");
+    }
 
-
+    private static void testOpenAddressing() {
         System.out.println("Checking Open Addressing");
         JDHashMap<Integer, String> ht = new HashTableOpen<>();
         ht.put(1, "One");
@@ -78,6 +90,5 @@ public class Driver {
         }
         System.out.println(htChain.toString());
         htChain.put(2, "Two");
-        System.out.println(htChain.toString());
-    }
+        System.out.println(htChain.toString());   }
 }
